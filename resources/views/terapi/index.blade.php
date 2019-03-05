@@ -1,8 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/datatables/datatables.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2-bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2.css') }}">
+
 @endsection
 @section('page-title')
 <div class="row">
@@ -32,7 +30,7 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered datatable hidden" id="table-pengguna">
+			<table class="table table-striped table-bordered hidden" id="table-pengguna">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -45,7 +43,7 @@
 					@foreach($data_terapi as $terapi)
 					<tr>
 						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td width="15%">{{ $terapi->jenis }}</td>
+						<td >{{ $terapi->jenis }}</td>
 						<td width="1%" style="white-space: nowrap">
 							<button class="btn btn-success" onclick="location.href='{{ route('terapi.edit', $terapi->id) }}'">Edit</button>
 							<button class="btn btn-warning" onclick="showDelete({{ $terapi->id }})">Delete</button>
@@ -65,8 +63,7 @@
 
 
 @section('js')
-<script src="{{ asset('template/backend/assets/js/datatables/datatables.js') }}"></script>
-<script src="{{ asset('template/backend/assets/js/select2/select2.min.js') }}"></script>
+
 
 <script type="text/javascript">
 	jQuery( document ).ready( function( $ ) {
@@ -81,10 +78,7 @@
 				},
 			});
 			
-			// Initalize Select Dropdown after DataTables is created
-			$table1.closest( '.dataTables_wrapper' ).find( 'select' ).select2( {
-				minimumResultsForSearch: -1
-			});
+			
 		} );
 	</script>
 

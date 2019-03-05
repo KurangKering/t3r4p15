@@ -43,7 +43,7 @@
 					<label for="field-1" class="col-sm-3 control-label">Password</label>
 
 					<div class="col-sm-5">
-						{!! Form::password('password', array('placeholder' => '','class' => 'form-control')) !!}
+						{!! Form::password('password', array('placeholder' => 'Isi Jika Ingin Mengubah Password','class' => 'form-control')) !!}
 
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 					<label for="field-1" class="col-sm-3 control-label">Confirm Password</label>
 
 					<div class="col-sm-5">
-						{!! Form::password('confirm-password', array('placeholder' => '','class' => 'form-control')) !!}
+						{!! Form::password('confirm-password', array('placeholder' => 'Samakan Dengan Field Password','class' => 'form-control')) !!}
 
 					</div>
 				</div>

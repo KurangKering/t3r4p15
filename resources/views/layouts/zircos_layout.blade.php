@@ -12,6 +12,11 @@
     <title>Terapi</title>
 
 
+    <!-- DataTables -->
+    <link href="{{ asset('template/zircos/Horizontal-Material/../plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('template/zircos/Horizontal-Material/../plugins/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+
+
     <!-- App css -->
     <link href="{{ asset('template/zircos/Horizontal-Material/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('template/zircos/Horizontal-Material/assets/css/core.css') }}" rel="stylesheet" type="text/css" />
@@ -21,6 +26,8 @@
     <link href="{{ asset('template/zircos/Horizontal-Material/assets/css/menu.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('template/zircos/Horizontal-Material/assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('template/zircos/Horizontal-Material/../plugins/switchery/switchery.min.css') }}">
+
+
 
     @yield('css')
 
@@ -112,7 +119,7 @@
                                 <!-- Navigation Menu-->
                                 <ul class="navigation-menu">
                           {{--   <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-view-dashboard"></i>Dashboard</a>
+                                <a href="#"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Dashboard</a>
                                 <ul class="submenu">
                                     <li>
                                         <a href="index.html">Dashboard 01</a>
@@ -124,7 +131,7 @@
                             </li> --}}
 
                             <li>
-                                <a href="{{ url('home') }}"><i class="mdi mdi-view-dashboard"></i>Dashboard</a>
+                                <a href="{{ url('home') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Dashboard</a>
 
                             </li>
 
@@ -133,38 +140,38 @@
                             @endphp
                             @if($role == 'admin')
                             <li>
-                                <a href="{{ route('klien.index') }}"><i class="mdi mdi-view-dashboard"></i>Klien</a>
+                                <a href="{{ route('klien.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Klien</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('anak.index') }}"><i class="mdi mdi-view-dashboard"></i>Anak</a>
+                                <a href="{{ route('anak.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Anak</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('terapis.index') }}"><i class="mdi mdi-view-dashboard"></i>Terapis</a>
+                                <a href="{{ route('terapis.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Terapis</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('terapi.index') }}"><i class="mdi mdi-view-dashboard"></i>Data Terapi</a>
+                                <a href="{{ route('terapi.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Data Terapi</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('pengguna.index') }}"><i class="mdi mdi-view-dashboard"></i>Pengguna</a>
+                                <a href="{{ route('pengguna.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Pengguna</a>
 
                             </li>
                             @elseif($role == 'klien')
                             
                             @elseif($role == 'terapis')
                             <li>
-                                <a href="{{ route('terapi_anak.index') }}"><i class="mdi mdi-view-dashboard"></i>Terapi Anak</a>
+                                <a href="{{ route('terapi_anak.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Terapi Anak</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('hasil_terapi.index') }}"><i class="mdi mdi-view-dashboard"></i>Hasil Terapi</a>
+                                <a href="{{ route('hasil_terapi.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Hasil Terapi</a>
 
                             </li>
                             <li>
-                                <a href="{{ route('hasil_evaluasi.index') }}"><i class="mdi mdi-view-dashboard"></i>Hasil Evaluasi</a>
+                                <a href="{{ route('hasil_evaluasi.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Hasil Evaluasi</a>
 
                             </li>
                             @endif
@@ -245,6 +252,11 @@
         <script src="{{ asset('plugins/axios/dist/axios.min.js') }}"></script>
 
 
+        <script src="{{ asset('template/zircos/Horizontal-Material/../plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('template/zircos/Horizontal-Material/../plugins/datatables/dataTables.bootstrap.js') }}"></script>
+
+       
+       
 
 
         <!-- App js -->

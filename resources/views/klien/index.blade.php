@@ -1,8 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/datatables/datatables.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2-bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2.css') }}">
+
 @endsection
 @section('page-title')
 
@@ -34,7 +32,7 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered datatable hidden" id="table-pengguna">
+			<table class="table table-bordered table-striped hidden" id="table-pengguna">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -71,8 +69,7 @@
 
 
 @section('js')
-<script src="{{ asset('template/backend/assets/js/datatables/datatables.js') }}"></script>
-<script src="{{ asset('template/backend/assets/js/select2/select2.min.js') }}"></script>
+
 
 <script type="text/javascript">
 	jQuery( document ).ready( function( $ ) {
@@ -87,10 +84,7 @@
 				},
 			});
 			
-			// Initalize Select Dropdown after DataTables is created
-			$table1.closest( '.dataTables_wrapper' ).find( 'select' ).select2( {
-				minimumResultsForSearch: -1
-			});
+			
 		} );
 	</script>
 

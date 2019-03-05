@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Anak;
+use App\Klien;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,9 @@ class AnakController extends Controller
      */
     public function create()
     {
-        return view('anak.create');
+        $data_klien = Klien::latest()->get();
+        $kliens     = $data_klien->pluck('nama_ayah', 'id')->all();
+        return view('anak.create', compact('data_klien', 'kliens'));
     }
 
     /**
@@ -38,42 +41,67 @@ class AnakController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * Jika request dari menu tambah
+         */
+
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'tempat_lahir' => 'required',
+            'klien_id'      => 'required',
+            'nama'          => 'required',
+            'tempat_lahir'  => 'required',
             'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'no_hp' => 'required',
+            'anak_ke'       => 'required',
 
         ]);
-
-
-        $input_user = [
-            'name'      => $request->get('name'),
-            'email'     => $request->get('email'),
-            'password'  => Hash::make($request->get('password')),
-            'role'      => 'anak',
-
+        
+        $input_anak = [
+            'nama'          => $request->get('nama'),
+            'tempat_lahir'  => $request->get('tempat_lahir'),
+            'tanggal_lahir' => $request->get('tanggal_lahir'),
+            'anak_ke'       => $request->get('anak_ke'),
+            'klien_id'      => $request->get('klien_id'),
         ];
-        $user = User::create($input_user);
 
-        if ($user) {
-            $input_anak = [
-                'tempat_lahir'  => $request->get('tempat_lahir'),
-                'tanggal_lahir' => $request->get('tanggal_lahir'),
-                'alamat'        => $request->get('alamat'),
-                'no_hp'         => $request->get('no_hp'),
-                'user_id'       => $user->id,
-            ];
-
-            $anak = Anak::create($input_anak);
-        }
-
-
-
+        $anak = Anak::create($input_anak);
         return redirect(route('anak.index'))->with(['success' => true, 'msg' => 'Berhasil Menambah Data Anak']);
+
+
+        /**
+         * jika request dari menu tambah klien
+         *
+         *
+         * 
+         */
+        // $this->validate($request, [
+        //     'name'          => 'required',
+        //     'email'         => 'required|email|unique:users,email',
+        //     'password'      => 'required|same:confirm-password',
+        //     'tempat_lahir'  => 'required',
+        //     'tanggal_lahir' => 'required',
+        //     'alamat'        => 'required',
+        //     'no_hp'         => 'required',
+
+        // ]);
+
+        // $input_user = [
+        //     'name'     => $request->get('name'),
+        //     'email'    => $request->get('email'),
+        //     'password' => Hash::make($request->get('password')),
+        //     'role'     => 'anak',
+        // ];
+        // $user = User::create($input_user);
+        // if ($user) {
+        //     $input_anak = [
+        //         'tempat_lahir'  => $request->get('tempat_lahir'),
+        //         'tanggal_lahir' => $request->get('tanggal_lahir'),
+        //         'alamat'        => $request->get('alamat'),
+        //         'no_hp'         => $request->get('no_hp'),
+        //         'user_id'       => $user->id,
+        //     ];
+
+        //     $anak = Anak::create($input_anak);
+        // }
+        // return redirect(route('anak.index'))->with(['success' => true, 'msg' => 'Berhasil Menambah Data Anak']);
     }
 
     /**
@@ -97,7 +125,7 @@ class AnakController extends Controller
     {
         $anak = Anak::findOrFail($id);
         return view('anak.edit', compact('anak'));
-        
+
     }
 
     /**
@@ -118,10 +146,10 @@ class AnakController extends Controller
         ]);
 
         $input_anak = [
-            'nama'  => $request->get('nama'),
+            'nama'          => $request->get('nama'),
             'tempat_lahir'  => $request->get('tempat_lahir'),
             'tanggal_lahir' => $request->get('tanggal_lahir'),
-            'anak_ke'        => $request->get('anak_ke'),
+            'anak_ke'       => $request->get('anak_ke'),
         ];
         $anak = Anak::findOrFail($id);
         $anak->update($input_anak);

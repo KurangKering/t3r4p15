@@ -1,8 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/datatables/datatables.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2-bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2.css') }}">
+
 @endsection
 @section('page-title')
 <div class="row">
@@ -32,7 +30,7 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered datatable hidden" id="table-pengguna">
+			<table class="table table-bordered table-striped hidden" id="table-pengguna">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -52,9 +50,8 @@
 						<td width="15%">{{ $hasil->terapi_anak->terapi->jenis }}</td>
 						<td width="1%">{{ $hasil->pertemuan_ke }}</td>
 						<td width="1%" nowrap>
-							<button class="btn btn-xs btn-default">Lihat</button>
 
-							<button class="btn btn-xs btn-danger" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil->id) }}', '_blank');">PDF</button></td>
+							<button class="btn  btn-danger btn-block" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil->id) }}', '_blank');">PDF</button></td>
 							<td width="1%" class="text-nowrap">
 								<button class="btn btn-success" onclick="location.href='{{ route('hasil_terapi.edit', $hasil->id) }}'">Edit</button>
 								<button class="btn btn-warning" onclick="showDelete({{ $hasil->id }})">Delete</button>
@@ -69,13 +66,11 @@
 		</div> <!-- end col -->
 	</div>
 
-
 	@endsection
 
 
 	@section('js')
-	<script src="{{ asset('template/backend/assets/js/datatables/datatables.js') }}"></script>
-	<script src="{{ asset('template/backend/assets/js/select2/select2.min.js') }}"></script>
+
 
 	<script type="text/javascript">
 		jQuery( document ).ready( function( $ ) {
@@ -90,10 +85,7 @@
 				},
 			});
 			
-			// Initalize Select Dropdown after DataTables is created
-			$table1.closest( '.dataTables_wrapper' ).find( 'select' ).select2( {
-				minimumResultsForSearch: -1
-			});
+			
 		} );
 	</script>
 

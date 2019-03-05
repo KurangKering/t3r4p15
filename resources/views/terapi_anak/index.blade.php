@@ -1,8 +1,15 @@
 @extends('layouts.zircos_layout')
 @section('css')
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/datatables/datatables.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2-bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2.css') }}">
+
+
+<style>
+th {
+	white-space: nowrap;
+}
+th:last-child {
+	text-align: center;
+}
+</style>
 @endsection
 @section('page-title')
 <div class="row">
@@ -32,43 +39,61 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered datatable hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama Anak</th>
-						<th>Jenis Terapi</th>
-						<th>Terapis</th>
-						<th>Status</th>
-						<th>Jumlah Pertemuan</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($data_terapi_anak as $terapi_anak)
-					<tr>
-						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td width="15%">{{ $terapi_anak->anak->nama }}</td>
-						<td width="15%">{{ $terapi_anak->terapi->jenis }}</td>
-						<td width="15%">{{ $terapi_anak->terapis->user->name }}</td>
-						<td width="15%">{{ Config::get('enums.status_terapi_anak')[$terapi_anak->status] }}</td>
-						<td width="15%">{{ isset($terapi_anak->hasil_terapi) ? count($terapi_anak->hasil_terapi) : '0' }}</td>
-						<td width="1%" style="white-space: nowrap">
-							
-							<button class="btn btn-success" onclick="location.href='{{ route('hasil_terapi.create') . '?terapi_anak_id='.$terapi_anak->id }}'">Tambah Hasil Terapi</button>
-							<button class="btn btn-success" onclick="location.href='{{ route('hasil_evaluasi.create') . '?terapi_anak_id='.$terapi_anak->id }}'">Tambah Hasil Evaluasi</button>
-							<button class="btn btn-success" onclick="location.href='{{ route('terapi_anak.edit', $terapi_anak->id) }}'">Edit</button>
-							<button class="btn btn-warning" onclick="showDelete({{ $terapi_anak->id }})">Delete</button>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden table-respon" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama Anak</th>
+							<th>Jenis Terapi</th>
+							<th>Terapis</th>
+							<th>Status</th>
+							<th>Pertemuan</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($data_terapi_anak as $terapi_anak)
+						<tr>
+							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
+							<td width="15%">{{ $terapi_anak->anak->nama }}</td>
+							<td width="15%">{{ $terapi_anak->terapi->jenis }}</td>
+							<td width="15%">{{ $terapi_anak->terapis->user->name }}</td>
+							<td width="15%">{{ Config::get('enums.status_terapi_anak')[$terapi_anak->status] }}</td>
+							<td width="15%">{{ isset($terapi_anak->hasil_terapi) ? count($terapi_anak->hasil_terapi) : '0' }}</td>
+							<td width="1%" style="white-space: nowrap">
+								<div class="btn-group">
+									<button type="button" class="btn btn-purple dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false"> Hasil Terapi <span class="caret"></span> </button>
+									<ul class="dropdown-menu">
+										<li><a href="{{ route('hasil_terapi.index', ['terapi_anak_id' => $terapi_anak->id]) }}">Lihat</a></li>
 
-			</table>
+										<li><a  href="{{ route('hasil_terapi.create') . '?terapi_anak_id='.$terapi_anak->id }}">Tambah</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-brown dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false"> Hasil Evaluasi <span class="caret"></span> </button>
+								<ul class="dropdown-menu">
+									<li><a href="{{ route('hasil_evaluasi.index', ['terapi_anak_id' => $terapi_anak->id]) }}">Lihat</a></li>
+									<li><a href="{{ route('hasil_evaluasi.create') . '?terapi_anak_id='.$terapi_anak->id }}">Tambah</a></li>
+								</ul>
+							</div>
+						</div>
 
-		</div> <!-- end card-box -->
-	</div> <!-- end col -->
+
+						<button class="btn btn-success" onclick="location.href='{{ route('terapi_anak.edit', $terapi_anak->id) }}'">Edit</button>
+						<button class="btn btn-warning" onclick="showDelete({{ $terapi_anak->id }})">Delete</button>
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+
+		</table>
+	</div>
+
+</div> <!-- end card-box -->
+</div> <!-- end col -->
 </div>
 
 
@@ -76,8 +101,7 @@
 
 
 @section('js')
-<script src="{{ asset('template/backend/assets/js/datatables/datatables.js') }}"></script>
-<script src="{{ asset('template/backend/assets/js/select2/select2.min.js') }}"></script>
+
 
 <script type="text/javascript">
 	jQuery( document ).ready( function( $ ) {
@@ -92,10 +116,7 @@
 				},
 			});
 			
-			// Initalize Select Dropdown after DataTables is created
-			$table1.closest( '.dataTables_wrapper' ).find( 'select' ).select2( {
-				minimumResultsForSearch: -1
-			});
+			
 		} );
 	</script>
 

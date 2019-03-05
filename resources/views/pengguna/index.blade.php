@@ -1,8 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/datatables/datatables.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2-bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('template/backend/assets/js/select2/select2.css') }}">
+
 @endsection
 @section('page-title')
 <div class="row">
@@ -11,7 +9,7 @@
 			<div class="btn-group pull-right">
 				<a href="{{ route('pengguna.create') }}" class="btn btn-primary btn-sm  btn-icon icon-left">
 					<i class="entypo-plus"></i>
-					Tambah Pengguna
+					Tambah Admin
 				</a>
 			</div>
 			<h4 class="page-title">Daftar Pengguna</h4>
@@ -34,7 +32,7 @@
 
 
 
-			<table class="table table-bordered datatable hidden" id="table-pengguna">
+			<table class="table table-bordered table-striped hidden" id="table-pengguna">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -54,7 +52,10 @@
 						<td width="15%">{{ $user->role }}</td>
 						<td width="1%" style="white-space: nowrap">
 							<button class="btn btn-success" onclick="location.href='{{ route('pengguna.edit', $user->id) }}'">Edit</button>
-							<button class="btn btn-warning">Delete</button>
+							@if(Auth::user()->id != $user->id)
+							<button class="btn btn-warning" onclick="showDelete({{ $user->id }})">Delete</button>
+
+							@endif
 						</td>
 					</tr>
 					@endforeach
@@ -70,8 +71,7 @@
 
 
 @section('js')
-<script src="{{ asset('template/backend/assets/js/datatables/datatables.js') }}"></script>
-<script src="{{ asset('template/backend/assets/js/select2/select2.min.js') }}"></script>
+
 <script src="{{ asset('template/backend/assets/js/neon-chat.js') }}"></script>
 
 <script type="text/javascript">
@@ -87,10 +87,54 @@
 				},
 			});
 			
-			// Initalize Select Dropdown after DataTables is created
-			$table1.closest( '.dataTables_wrapper' ).find( 'select' ).select2( {
-				minimumResultsForSearch: -1
-			});
+			
 		} );
+	</script>
+
+	<script>
+		function showDelete(id) 
+		{
+			swal({
+				icon : 'warning',
+				text : 'Yakin ingin Menghapus data ?',
+				buttons : {
+					yes : {
+						className : 'btn btn-danger',
+					},
+					no : {
+						className : 'btn btn-warning',
+
+					}
+				},
+				closeOnClickOutside : false,
+			})
+			.then(resp => {
+				if (resp == 'yes') 
+				{
+					axios.post('{{ route('pengguna.index') }}'+'\/'+id, {
+						_method : 'DELETE',
+						_token : '{{ csrf_token() }}',
+						
+					})
+					.then(response => {
+						resp = response.data;
+						if (resp.success) {
+							location.reload();
+						} else {
+							swal('Ada Error');
+						}
+						
+					})
+					.catch(err => {
+						swal({
+							icon : 'error',
+							closeOnClickOutside: false,
+							text : 'Data Sedang Digunakan',
+						});
+					})
+				}
+
+			})
+		}
 	</script>
 	@endsection

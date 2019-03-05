@@ -29,7 +29,7 @@
 				</ul>
 			</div>
 			@endif
-			{!! Form::open(array('route' => ['pengguna.update', $pengguna->id],'method'=>'POST', 'class' => 'form-horizontal form-groups-bordered' )) !!}
+			{!! Form::open(array('route' => ['pengguna.update', $pengguna->id],'method'=>'PATCH', 'class' => 'form-horizontal form-groups-bordered' )) !!}
 			<div class="form-group">
 				<label for="field-1" class="col-sm-3 control-label">Nama</label>
 
@@ -66,17 +66,13 @@
 				<label class="col-sm-3 control-label">Hak Akses</label>
 
 				<div class="col-sm-5">
-					<select class="form-control" name="role">
-						@foreach(\Config::get('enums.roles') as $index => $role)
-						<option {{ $pengguna->role == $index ? 'selected' : '' }} value="{{ $index }}">{{ $role }}
-						</option>
-						@endforeach
-					</select>
+					{!! Form::text('role-text', Config::get('enums.roles')[$pengguna->role], array('placeholder' => '','readonly' => true, 'class' => 'form-control')) !!}
+					
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-5">
-					<button type="submit" class="btn btn-default">Sign in</button>
+					<button type="submit" class="btn btn-default">Ubah</button>
 				</div>
 			</div>
 			{!! Form::close() !!}

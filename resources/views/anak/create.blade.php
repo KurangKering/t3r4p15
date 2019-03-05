@@ -30,91 +30,15 @@
 				</ul>
 			</div>
 			@endif
-			{!! Form::open(array('route' => 'terapis.store','method'=>'POST', 'class' => 'form-horizontal form-groups-bordered' )) !!}
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Nama Pengguna</label>
-
-				<div class="col-sm-5">
-					{!! Form::text('name', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Email Login</label>
-
-				<div class="col-sm-5">
-					{!! Form::email('email', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Password</label>
-
-				<div class="col-sm-5">
-					{!! Form::password('password', array('placeholder' => '','class' => 'form-control')) !!}
-
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Confirm Password</label>
-
-				<div class="col-sm-5">
-					{!! Form::password('confirm-password', array('placeholder' => '','class' => 'form-control')) !!}
-
-				</div>
-			</div>
-
+			{!! Form::open(array('route' => 'anak.store','method'=>'POST', 'class' => 'form-horizontal form-groups-bordered' )) !!}
+			{!! Form::hidden('menu_anak', '1') !!}
 			<div class="form-group">
 				<label for="field-1" class="col-sm-3 control-label">Nama Ayah</label>
 
 				<div class="col-sm-5">
-					{!! Form::text('nama_ayah', null, array('placeholder' => '','class' => 'form-control')) !!}
+					{!! Form::select('klien_id', $kliens, null , array('class' => 'form-control')) !!}
 				</div>
 			</div>
-
-
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">No HP Ayah</label>
-
-				<div class="col-sm-5">
-					{!! Form::number('hp_ayah', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Email Ayah</label>
-
-				<div class="col-sm-5">
-					{!! Form::email('email_ayah', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Nama Ibu</label>
-
-				<div class="col-sm-5">
-					{!! Form::text('nama_ibu', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">No HP Ibu</label>
-
-				<div class="col-sm-5">
-					{!! Form::number('hp_ibu', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="field-1" class="col-sm-3 control-label">Email Ibu</label>
-
-				<div class="col-sm-5">
-					{!! Form::email('email_ibu', null, array('placeholder' => '','class' => 'form-control')) !!}
-				</div>
-			</div>
-
 
 			<div class="form-group">
 				<label for="field-1" class="col-sm-3 control-label">Nama Anak</label>
@@ -150,12 +74,12 @@
 					<button type="submit" class="btn btn-primary">Tambah</button>
 				</div>
 			</div>
-		{!! Form::close() !!}
+			{!! Form::close() !!}
 
 
 
-	</div> <!-- end card-box -->
-</div> <!-- end col -->
+		</div> <!-- end card-box -->
+	</div> <!-- end col -->
 </div>
 
 

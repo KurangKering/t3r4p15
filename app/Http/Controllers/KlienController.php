@@ -142,9 +142,14 @@ class KlienController extends Controller
         $input_user = [
             'name'     => $request->get('nama_pengguna'),
             'email'    => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
+            
 
         ];
+        $password = $request->get('password');
+        if(!empty($password)){ 
+            $input_user['password'] = Hash::make($password);
+        }
+
         $user = User::findOrFail($klien->user->id);
         $user = $user->update($input_user);
 
@@ -163,7 +168,7 @@ class KlienController extends Controller
 
         }
 
-        return redirect(route('klien.index'))->with(['success' => true, 'msg' => 'Berhasil Menambah Data Klien']);
+        return redirect(route('klien.index'))->with(['success' => true, 'msg' => 'Berhasil Merubah Data Klien']);
 
 
     }
