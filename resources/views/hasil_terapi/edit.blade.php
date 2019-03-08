@@ -34,6 +34,20 @@
 			</div>
 			@endif
 			{!! Form::open(array('route' => ['hasil_terapi.update', $hasil_terapi],'method'=>'PATCH', 'class' => 'form-horizontal form-groups-bordered' )) !!}
+
+
+			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Nama Anak</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->anak->nama , array('placeholder' => '','class' => 'form-control', 'readonly' => true)) !!}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Terapi</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->terapi->jenis , array('placeholder' => '','class' => 'form-control', 'readonly' => true)) !!}
+				</div>
+			</div>
 			<div class="form-group">
 				<label for="field-1" class="col-sm-2 control-label">Pertemuan Ke</label>
 				<div class="col-sm-10">

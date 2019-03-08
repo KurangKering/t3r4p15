@@ -1,6 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-
+@parent
 @endsection
 @section('page-title')
 <div class="row">
@@ -30,28 +30,35 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered table-striped hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama Anak</th>
-						<th>Terapi</th>
-						<th width="1%" class="text-nowrap">Pertemuan Ke</th>
-						<th>Hasil</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($hasil_terapi as $hasil)
-					<tr>
-						<td width="1%"  class="text-center text-nowrap">{{ $no++ }}</td>
-						<td width="15%">{{ $hasil->terapi_anak->anak->nama }}</td>
-						<td width="15%">{{ $hasil->terapi_anak->terapi->jenis }}</td>
-						<td width="1%">{{ $hasil->pertemuan_ke }}</td>
-						<td width="1%" nowrap>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama Anak</th>
+							<th>Terapi</th>
+							<th width="1%" class="text-nowrap">Pertemuan Ke</th>
+							<th width="1%" class="text-nowrap">Tanggal</th>
+							<th>Hasil</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($hasil_terapi as $hasil)
+						<tr>
+							<td width="1%"  class="text-center text-nowrap">{{ $no++ }}</td>
+							<td width="15%">{{ $hasil->terapi_anak->anak->nama }}</td>
+							<td width="15%">{{ $hasil->terapi_anak->terapi->jenis }}</td>
+							<td width="1%">{{ $hasil->pertemuan_ke }}</td>
+							<td width="1%">{{ indonesian_date($hasil->tanggal, 'j F Y') }}</td>
+							<td width="1%" nowrap>
 
-							<button class="btn  btn-danger btn-block" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil->id) }}', '_blank');">PDF</button></td>
+								
+								<button class="btn  btn-info" onclick="show_modal('{{ $hasil->id }}')">Lihat</button>
+								<button class="btn  btn-danger" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil->id) }}', '_blank');">PDF</button>
+
+							</td>
 							<td width="1%" class="text-nowrap">
 								<button class="btn btn-success" onclick="location.href='{{ route('hasil_terapi.edit', $hasil->id) }}'">Edit</button>
 								<button class="btn btn-warning" onclick="showDelete({{ $hasil->id }})">Delete</button>
@@ -61,20 +68,22 @@
 					</tbody>
 
 				</table>
+			</div>
 
-			</div> <!-- end card-box -->
-		</div> <!-- end col -->
-	</div>
+		</div> <!-- end card-box -->
+	</div> <!-- end col -->
+</div>
 
-	@endsection
-
-
-	@section('js')
+@include('hasil_terapi.modal_hasil')
+@endsection
 
 
-	<script type="text/javascript">
-		jQuery( document ).ready( function( $ ) {
-			var $table1 = jQuery( '#table-pengguna' );
+@section('js')
+
+
+<script type="text/javascript">
+	jQuery( document ).ready( function( $ ) {
+		var $table1 = jQuery( '#table-pengguna' );
 
 			// Initialize DataTable
 			$table1.DataTable( {

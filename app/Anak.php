@@ -19,4 +19,8 @@ class Anak extends Model
 	{
 		return $this->belongsTo('App\Klien');
 	}
+	public function terapi_anak()
+	{
+		return $this->hasMany('App\TerapiAnak');
+	}
 }

@@ -26,4 +26,12 @@ class Klien extends Model
 	{
 		return $this->hasMany('App\Anak');
 	}
+
+	public function terapi_anak()
+	{
+		return $this->hasManyThrough('App\TerapiAnak', 'App\Anak', 'klien_id', 'anak_id');
+	}
+
+	
+
 }

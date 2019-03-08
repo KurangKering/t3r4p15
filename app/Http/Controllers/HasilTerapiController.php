@@ -16,15 +16,35 @@ class HasilTerapiController extends Controller
      */
     public function index(Request $request)
     {
-        $terapi_anak_id = $request->query('terapi_anak_id');
-        if ($terapi_anak_id) {
-            $hasil_terapi = HasilTerapi::where('terapi_anak_id', $terapi_anak_id)->get();
 
-        } else 
-        {
-            $hasil_terapi = HasilTerapi::latest()->get();
+
+
+        $user = \Auth::user();
+        $view = 'hasil_terapi.index';
+        if ($user->role == 'klien') {
+            $terapi_anak = $user->klien->terapi_anak;
+            $terapi_anak_ids = $terapi_anak->pluck('id')->all();
+            $hasil_terapi = HasilTerapi::whereIn('terapi_anak_id', $terapi_anak_ids)->get();
+
+            $view = 'hasil_terapi.index_klien';
+        } elseif ($user->role == 'terapis') {
+            $terapi_anak_id = $request->query('terapi_anak_id');
+            if ($terapi_anak_id) {
+                $terapi_anak = TerapiAnak::findOrFail($terapi_anak_id);
+                if ($terapi_anak->terapis_id != $user->terapis->id)
+                    return abort("403");
+                $hasil_terapi = HasilTerapi::where('terapi_anak_id', $terapi_anak_id)->get();
+
+            } else 
+            {
+
+
+                $hasil_terapi = $user->terapis->hasil_terapi;
+            } 
         }
-        return view("hasil_terapi.index", compact('hasil_terapi'));
+
+
+        return view($view, compact('hasil_terapi'));
     }
 
     /**
@@ -34,7 +54,8 @@ class HasilTerapiController extends Controller
      */
     public function create(Request $request)
     {   
-
+        if (\Auth::user()->role == 'klien')
+            abort('403');
         $terapi_anak_id = $request->query('terapi_anak_id');
         $terapi_anak = TerapiAnak::findOrFail($terapi_anak_id);
 
@@ -49,6 +70,9 @@ class HasilTerapiController extends Controller
      */
     public function store(Request $request)
     {
+        if (\Auth::user()->role == 'klien')
+            abort('403');
+
 
         $request->validate([
             'terapi_anak_id' => 'required',
@@ -72,7 +96,10 @@ class HasilTerapiController extends Controller
      */
     public function show($id)
     {
-        //
+        $hasil_terapi = HasilTerapi::with('terapi_anak.terapi', 'terapi_anak.anak.klien')->findOrFail($id);
+        $hasil_terapi->tanggal_manusia = indonesian_date($hasil_terapi->tanggal, 'j F Y');
+        return response()->json($hasil_terapi);
+
     }
 
     /**
@@ -83,8 +110,16 @@ class HasilTerapiController extends Controller
      */
     public function edit($id)
     {
+        if (\Auth::user()->role == 'klien')
+            abort('403');
+        
+
         $hasil_terapi = HasilTerapi::findOrFail($id);
         $terapi_anak = $hasil_terapi->terapi_anak;
+
+        if ($terapi_anak->terapis_id != \Auth::user()->terapis->id)
+            return abort("403");
+
         return view('hasil_terapi.edit', compact('hasil_terapi', 'terapi_anak'));
 
     }
@@ -99,6 +134,12 @@ class HasilTerapiController extends Controller
     public function update(Request $request, $id)
     {
 
+        if (\Auth::user()->role == 'klien')
+            abort('403');
+        $hasil_terapi = HasilTerapi::findOrFail($id);
+        $terapi_anak = $hasil_terapi->terapi_anak;
+        if ($terapi_anak->terapis_id != \Auth::user()->terapis->id)
+            return abort("403");
 
         $request->validate([
             'pertemuan_ke' => 'required',
@@ -108,7 +149,6 @@ class HasilTerapiController extends Controller
         []);
 
         $input = $request->all();
-        $hasil_terapi = HasilTerapi::findOrFail($id);
         $hasil_terapi = $hasil_terapi->update($input);
         return redirect(route('hasil_terapi.index'))->with(['success' => true, 'msg' => 'Berhasil Merubah Hasil Terapi']);
     }
@@ -121,7 +161,16 @@ class HasilTerapiController extends Controller
      */
     public function destroy($id)
     {
+
+        if (\Auth::user()->role == 'klien')
+            abort('403');
+        
         $hasil_terapi = HasilTerapi::findOrFail($id);
+        $terapi_anak = $hasil_terapi->terapi_anak;
+        if ($terapi_anak->terapis_id != \Auth::user()->terapis->id)
+            return abort("403");
+
+        
         $hasil_terapi->delete();
         return response()->json(['success' => true, 'msg' => 'Berhasil menghapus data Terapi']);
         
@@ -137,6 +186,6 @@ class HasilTerapiController extends Controller
         
         // return view('hasil_terapi.cetak', compact('hasil_terapi'));
         $pdf = PDF::setPaper('A4','portrait')->loadView('hasil_terapi.cetak', compact('hasil_terapi'));
-         return $pdf->stream();
+        return $pdf->stream();
     }
 }

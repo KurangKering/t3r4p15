@@ -140,7 +140,7 @@ th:last-child {
 			.then(resp => {
 				if (resp == 'yes') 
 				{
-					axios.post('{{ route('terapi.index') }}'+'\/'+id, {
+					axios.post('{{ route('terapi_anak.index') }}'+'\/'+id, {
 						_method : 'DELETE',
 						_token : '{{ csrf_token() }}',
 						

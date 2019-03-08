@@ -32,36 +32,38 @@
 
 
 
-			<table class="table table-bordered table-striped hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Email</th>
-						<th>Hak Akses</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($users as $user)
-					<tr>
-						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td>{{ $user->name }}</td>
-						<td>{{ $user->email }}</td>
-						<td width="15%">{{ $user->role }}</td>
-						<td width="1%" style="white-space: nowrap">
-							<button class="btn btn-success" onclick="location.href='{{ route('pengguna.edit', $user->id) }}'">Edit</button>
-							@if(Auth::user()->id != $user->id)
-							<button class="btn btn-warning" onclick="showDelete({{ $user->id }})">Delete</button>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama</th>
+							<th>Email</th>
+							<th>Hak Akses</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($users as $user)
+						<tr>
+							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
+							<td>{{ $user->name }}</td>
+							<td>{{ $user->email }}</td>
+							<td width="15%">{{ $user->role }}</td>
+							<td width="1%" style="white-space: nowrap">
+								<button class="btn btn-success" onclick="location.href='{{ route('pengguna.edit', $user->id) }}'">Edit</button>
+								@if(Auth::user()->id != $user->id)
+								<button class="btn btn-warning" onclick="showDelete({{ $user->id }})">Delete</button>
 
-							@endif
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+								@endif
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
 
-			</table>
+				</table>
+			</div>
 
 		</div> <!-- end card-box -->
 	</div> <!-- end col -->

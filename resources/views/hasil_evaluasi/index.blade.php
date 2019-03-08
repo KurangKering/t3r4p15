@@ -1,6 +1,6 @@
 @extends('layouts.zircos_layout')
 @section('css')
-
+@parent
 @endsection
 @section('page-title')
 <div class="row">
@@ -30,42 +30,48 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered table-striped hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Terapi</th>
-						<th>Jumlah Pertemuan</th>
-						<th>Hasil</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($hasil_evaluasi as $evaluasi)
-					<tr>
-						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td width="15%">{{ $evaluasi->terapi_anak->anak->nama }}</td>
-						<td width="15%">{{ $evaluasi->terapi_anak->terapi->jenis }}</td>
-						<td width="1%" >{{ count(($evaluasi->hasil_evaluasi_terapi)) }}</td>
-						<td width="1%" class="text-nowrap">
-							<button class="btn btn-sm btn-danger btn-block" onclick="window.open('{{ route('hasil_evaluasi.cetak', $evaluasi->id) }}', '_blank');">PDF</button>
-						</td>
-						<td width="1%" style="white-space: nowrap">
-							<button class="btn btn-success" onclick="location.href='{{ route('hasil_evaluasi.edit', $evaluasi->id) }}'">Edit</button>
-							<button class="btn btn-warning" onclick="showDelete({{ $evaluasi->id }})">Delete</button>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama</th>
+							<th>Terapi</th>
+							<th>Jumlah Pertemuan</th>
+							<th>Tanggal</th>
+							<th>Hasil</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($hasil_evaluasi as $evaluasi)
+						<tr>
+							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
+							<td width="15%">{{ $evaluasi->terapi_anak->anak->nama }}</td>
+							<td width="15%">{{ $evaluasi->terapi_anak->terapi->jenis }}</td>
+							<td width="1%" >{{ indonesian_date($evaluasi->tanggal, 'j F Y') }}</td>
+							<td width="1%" >{{ count(($evaluasi->hasil_evaluasi_terapi)) }}</td>
+							<td width="1%" class="text-nowrap">
+								<button class="btn  btn-info" onclick="show_modal('{{ $evaluasi->id }}')">Lihat</button>
+								<button class="btn  btn-danger " onclick="window.open('{{ route('hasil_evaluasi.cetak', $evaluasi->id) }}', '_blank');">PDF</button>
+							</td>
+							<td width="1%" style="white-space: nowrap">
+								<button class="btn btn-success" onclick="location.href='{{ route('hasil_evaluasi.edit', $evaluasi->id) }}'">Edit</button>
+								<button class="btn btn-warning" onclick="showDelete({{ $evaluasi->id }})">Delete</button>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
 
-			</table>
+				</table>
+			</div>
 
 		</div> <!-- end card-box -->
 	</div> <!-- end col -->
 </div>
 
+@include('hasil_evaluasi.modal_hasil')
 
 @endsection
 

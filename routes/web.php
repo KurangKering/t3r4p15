@@ -45,7 +45,13 @@ Route::group(['middleware' => 'revalidate'], function() {
 		Route::resource('anak', 'AnakController');
 
 	});
-	Route::group(['middleware' => 'role:terapis, klien'], function() {
+	Route::group(['middleware' => 'role:terapis'], function() {
+		Route::resource('terapi_anak', 'TerapiAnakController');
+		
+	});
+	
+	
+	Route::group(['middleware' => 'role:terapis,klien'], function() {
 		Route::get('hasil_terapi/{id}/cetak', [
 			'uses' => 'HasilTerapiController@cetak',
 			'as' => 'hasil_terapi.cetak',
@@ -58,12 +64,10 @@ Route::group(['middleware' => 'revalidate'], function() {
 
 		]);
 
-	});
-	Route::group(['middleware' => 'role:terapis'], function() {
-		Route::resource('terapi_anak', 'TerapiAnakController');
 		Route::resource('hasil_terapi', 'HasilTerapiController');
 		Route::resource('hasil_evaluasi', 'HasilEvaluasiController');
-
+		Route::resource('profil', 'ProfilController');
 	});
+	
 	
 });

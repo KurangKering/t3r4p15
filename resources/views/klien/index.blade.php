@@ -32,33 +32,35 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered table-striped hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Email</th>
-						<th>Jumlah Anak</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($data_klien as $klien)
-					<tr>
-						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td width="15%">{{ $klien->user->name }}</td>
-						<td width="15%">{{ $klien->user->email }}</td>
-						<td width="15%">{{ $klien->anak->count() }}</td>
-						<td width="1%" style="white-space: nowrap">
-							<button class="btn btn-success" onclick="location.href='{{ route('klien.edit', $klien->id) }}'">Edit</button>
-							<button class="btn btn-warning" onclick="showDelete({{ $klien->id }})">Delete</button>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama</th>
+							<th>Email</th>
+							<th>Jumlah Anak</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($data_klien as $klien)
+						<tr>
+							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
+							<td width="15%">{{ $klien->user->name }}</td>
+							<td width="15%">{{ $klien->user->email }}</td>
+							<td width="15%">{{ $klien->anak->count() }}</td>
+							<td width="1%" style="white-space: nowrap">
+								<button class="btn btn-success" onclick="location.href='{{ route('klien.edit', $klien->id) }}'">Edit</button>
+								<button class="btn btn-warning" onclick="showDelete({{ $klien->id }})">Delete</button>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
 
-			</table>
+				</table>
+			</div>
 
 		</div> <!-- end card-box -->
 	</div> <!-- end col -->

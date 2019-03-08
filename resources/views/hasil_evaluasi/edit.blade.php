@@ -1,7 +1,7 @@
 @extends('layouts.zircos_layout')
 @section('css')
 <link href="{{ asset('plugins/summernote/dist/summernote-lite.css') }}" rel="stylesheet" type="text/css" />
-
+@parent
 
 @endsection
 @section('page-title')
@@ -35,7 +35,18 @@
 			@endif
 			{!! Form::open(array('route' => ['hasil_evaluasi.update', $hasil_evaluasi->id],'method'=>'PATCH', 'class' => 'form-horizontal form-groups-bordered' )) !!}
 
-
+			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Nama Anak</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->anak->nama , array('placeholder' => '','class' => 'form-control',  'disabled' => true)) !!}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Terapi</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->terapi->jenis , array('placeholder' => '','class' => 'form-control', 'disabled' => true)) !!}
+				</div>
+			</div>
 			
 			<div class="form-group">
 				<label for="field-1" class="col-sm-2 control-label">Tanggal</label>
@@ -56,10 +67,11 @@
 
 						value="{{ $hasil_terapi->id }}" name="hasil_terapi_ids[]" id="{{ $hasil_terapi->id }}" type="checkbox">
 						<label for="{{ $hasil_terapi->id }}">
-							{{ 'Pertemuan ke ' . $hasil_terapi->pertemuan_ke . ' Tanggal ' . indonesian_date($hasil_terapi->tanggal) }}
+							{{ 'Pertemuan ke ' . $hasil_terapi->pertemuan_ke . ' Tanggal ' . indonesian_date($hasil_terapi->tanggal, 'j F Y') }}
 						</label>
 
-						<button class="btn btn-default btn-xs" style="margin-left: 20px;">Hasil Terapi</button>
+						<button type="button" onclick="show_modal('{{ $hasil_terapi->id }}')" class="btn btn-info btn-xs" style="margin-left: 20px;">Lihat</button>
+						<button type="button" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil_terapi->id) }}', '_blank');"  class="btn btn-danger btn-xs" style="margin-left: 20px;">PDF</button>
 					</div>
 					&nbsp;
 					@empty
@@ -91,6 +103,7 @@
 
 	</div>
 </div>
+@include('hasil_terapi.modal_hasil')
 
 @endsection
 

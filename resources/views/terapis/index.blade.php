@@ -30,39 +30,41 @@
 			</div>
 			@endif
 
-			<table class="table table-bordered table-striped hidden" id="table-pengguna">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Tempat Lahir</th>
-						<th>Tanggal Lahir</th>
-						<th>Alamat</th>
-						<th>No HP</th>
-						<th>Email</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					@php $no = 1; @endphp
-					@foreach($data_terapis as $terapis)
-					<tr>
-						<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-						<td width="15%">{{ $terapis->user->name }}</td>
-						<td width="15%">{{ $terapis->tempat_lahir }}</td>
-						<td width="15%">{{ indonesian_date($terapis->tanggal_lahir, 'd M Y') }}</td>
-						<td width="15%">{{ $terapis->alamat }}</td>
-						<td width="15%">{{ $terapis->no_hp }}</td>
-						<td width="15%">{{ $terapis->user->email }}</td>
-						<td width="1%" style="white-space: nowrap">
-							<button class="btn btn-success" onclick="location.href='{{ route('terapis.edit', $terapis->id) }}'">Edit</button>
-							<button class="btn btn-warning" onclick="showDelete({{ $terapis->id }})">Delete</button>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Nama</th>
+							<th>Tempat Lahir</th>
+							<th>Tanggal Lahir</th>
+							<th>Alamat</th>
+							<th>No HP</th>
+							<th>Email</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@php $no = 1; @endphp
+						@foreach($data_terapis as $terapis)
+						<tr>
+							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
+							<td width="15%">{{ $terapis->user->name }}</td>
+							<td width="15%">{{ $terapis->tempat_lahir }}</td>
+							<td width="15%">{{ indonesian_date($terapis->tanggal_lahir, 'd M Y') }}</td>
+							<td width="15%">{{ $terapis->alamat }}</td>
+							<td width="15%">{{ $terapis->no_hp }}</td>
+							<td width="15%">{{ $terapis->user->email }}</td>
+							<td width="1%" style="white-space: nowrap">
+								<button class="btn btn-success" onclick="location.href='{{ route('terapis.edit', $terapis->id) }}'">Edit</button>
+								<button class="btn btn-warning" onclick="showDelete({{ $terapis->id }})">Delete</button>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
 
-			</table>
+				</table>
+			</div>
 
 		</div> <!-- end card-box -->
 	</div> <!-- end col -->

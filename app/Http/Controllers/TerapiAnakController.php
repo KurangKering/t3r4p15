@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class TerapiAnakController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +19,17 @@ class TerapiAnakController extends Controller
      */
     public function index()
     {
-        $data_terapi_anak = TerapiAnak::latest()->get();
+
+        $user = \Auth::user();
+        $role = $user->role;
+        if ($role == 'klien') {
+            $data_terapi_anak = $user->klien->terapi_anak;
+        } elseif ($role == 'terapis') {
+            $terapis_id = $user->terapis->id;
+            $data_terapi_anak = TerapiAnak::where('terapis_id', $terapis_id)->get();            
+        } else {
+            return abort('404');
+        }
         return view('terapi_anak.index', compact('data_terapi_anak'));
     }
 
@@ -28,6 +40,9 @@ class TerapiAnakController extends Controller
      */
     public function create()
     {
+        if (\Auth::user()->role == 'klien')
+            abort('404');
+        
         $data_anak    = Anak::pluck('nama', 'id')->all();
         $jenis_terapi = Terapi::pluck('jenis', 'id')->all();
         $terapis = Terapis::latest()->get();

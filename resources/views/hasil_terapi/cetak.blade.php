@@ -140,6 +140,11 @@
 			<td>{{ ($hasil_terapi->terapi_anak->terapi->jenis) }}</td>
 		</tr>
 		<tr>
+			<th>Tanggal</th>
+			<td>:</td>
+			<td>{{ indonesian_date($hasil_terapi->tanggal, 'j F Y') }}</td>
+		</tr>
+		<tr>
 			<th>Pertemuan ke</th>
 			<td>:</td>
 			<td>{{ ($hasil_terapi->pertemuan_ke) }}</td>

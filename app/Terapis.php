@@ -24,5 +24,15 @@ class Terapis extends Model
 	{
 		return $this->hasMany('App\TerapiAnak');
 	}
-	
+
+	public function hasil_terapi()
+	{
+		return $this->hasManyThrough('App\HasilTerapi', 'App\TerapiAnak', 'terapis_id', 'terapi_anak_id');
+	}
+	public function hasil_evaluasi()
+	{
+		return $this->hasManyThrough('App\HasilEvaluasi', 'App\TerapiAnak', 'terapis_id', 'terapi_anak_id');
+	}
+
+
 }

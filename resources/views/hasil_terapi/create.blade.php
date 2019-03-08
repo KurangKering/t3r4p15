@@ -36,6 +36,18 @@
 			{!! Form::open(array('route' => 'hasil_terapi.store','method'=>'POST', 'class' => 'form-horizontal form-groups-bordered' )) !!}
 			{!! Form::hidden('terapi_anak_id', $terapi_anak->id) !!}
 			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Nama Anak</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->anak->nama , array('placeholder' => '','class' => 'form-control', 'readonly' => true)) !!}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="field-1" class="col-sm-2 control-label">Terapi</label>
+				<div class="col-sm-10">
+					{!! Form::text(null,$terapi_anak->terapi->jenis , array('placeholder' => '','class' => 'form-control', 'readonly' => true)) !!}
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="field-1" class="col-sm-2 control-label">Pertemuan Ke</label>
 				<div class="col-sm-10">
 					{!! Form::text('pertemuan_ke', isset($terapi_anak->hasil_terapi) ? (count($terapi_anak->hasil_terapi) + 1) : '1', array('placeholder' => '','class' => 'form-control', 'readonly' => true)) !!}

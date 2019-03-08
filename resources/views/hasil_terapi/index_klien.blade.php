@@ -1,18 +1,18 @@
 @extends('layouts.zircos_layout')
 @section('css')
-
+@parent
 @endsection
 @section('page-title')
 <div class="row">
 	<div class="col-sm-12">
 		<div class="page-title-box">
 			<div class="btn-group pull-right">
-				<a href="{{ route('anak.create') }}" class="btn btn-primary btn-sm  btn-icon icon-left">
+				{{-- <a href="{{ route('terapi.create') }}" class="btn btn-primary btn-sm  btn-icon icon-left">
 					<i class="entypo-plus"></i>
-					Tambah Anak
-				</a>
+					Tambah Terapi
+				</a> --}}
 			</div>
-			<h4 class="page-title">	Daftar Anak</h4>
+			<h4 class="page-title">Daftar Hasil Terapi</h4>
 		</div>
 	</div>
 </div>
@@ -31,43 +31,34 @@
 			@endif
 
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered hidden" id="table-pengguna">
+				<table class="table table-bordered table-striped hidden" id="table-pengguna">
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Nama</th>
-							<th>Tempat Lahir</th>
-							<th>Tanggal Lahir</th>
-							<th>Anak Ke</th>
-							<th>Action</th>
+							<th>Nama Anak</th>
+							<th>Terapi</th>
+							<th width="1%" class="text-nowrap">Pertemuan Ke</th>
+							<th width="1%" class="text-nowrap">Tanggal</th>
+							<th>Hasil</th>
 						</tr>
 					</thead>
 					<tbody>
 						@php $no = 1; @endphp
-						@foreach($data_anak as $anak)
+						@foreach($hasil_terapi as $hasil)
 						<tr>
-							<td width="1%" style="white-space: nowrap;" class="text-center">{{ $no++ }}</td>
-							<td width="15%">{{ $anak->nama }}</td>
-							<td width="15%">{{ $anak->tempat_lahir }}</td>
-							<td width="15%">{{ indonesian_date($anak->tanggal_lahir, 'd M Y') }}</td>
-							<td width="15%">
-								{{ $anak->anak_ke . ' ' }} 
-								@if ($anak->klien->nama_ayah)
+							<td width="1%"  class="text-center text-nowrap">{{ $no++ }}</td>
+							<td width="15%">{{ $hasil->terapi_anak->anak->nama }}</td>
+							<td width="15%">{{ $hasil->terapi_anak->terapi->jenis }}</td>
+							<td width="1%">{{ $hasil->pertemuan_ke }}</td>
+							<td width="1%">{{ indonesian_date($hasil->tanggal, 'j F Y') }}</td>
+							<td width="1%" nowrap>
 
-								{{ 'Mr '.$anak->klien->nama_ayah }}
+								
+								<button class="btn  btn-info" onclick="show_modal('{{ $hasil->id }}')">Lihat</button>
+								<button class="btn  btn-danger" onclick="window.open('{{ route('hasil_terapi.cetak', $hasil->id) }}', '_blank');">PDF</button>
 
-								@elseif($anak->klien->nama_ibu)
-
-								{{ 'Mrs '.$anak->klien->nama_ibu }}
-
-								@else
-								{{ '-' }}
-								@endif
 							</td>
-							<td width="1%" style="white-space: nowrap">
-								<button class="btn btn-success" onclick="location.href='{{ route('anak.edit', $anak->id) }}'">Edit</button>
-								<button class="btn btn-warning" onclick="showDelete({{ $anak->id }})">Delete</button>
-							</td>
+							
 						</tr>
 						@endforeach
 					</tbody>
@@ -79,6 +70,7 @@
 	</div> <!-- end col -->
 </div>
 
+@include('hasil_terapi.modal_hasil')
 @endsection
 
 
@@ -122,7 +114,7 @@
 			.then(resp => {
 				if (resp == 'yes') 
 				{
-					axios.post('{{ route('anak.index') }}'+'\/'+id, {
+					axios.post('{{ route('hasil_terapi.index') }}'+'\/'+id, {
 						_method : 'DELETE',
 						_token : '{{ csrf_token() }}',
 						
@@ -137,11 +129,13 @@
 						
 					})
 					.catch(err => {
+						errors = err.response;
 						swal({
 							icon : 'error',
 							closeOnClickOutside: false,
 							text : 'Data Sedang Digunakan',
 						});
+						
 					})
 				}
 
