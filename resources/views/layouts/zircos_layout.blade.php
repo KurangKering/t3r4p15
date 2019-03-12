@@ -78,7 +78,7 @@
 
 
 							<li class="dropdown navbar-c-items">
-								<a href="" class="dropdown-toggle waves-effect waves-light profile" data-toggle="dropdown" aria-expanded="true"><img src="{{ asset('template/zircos/Horizontal-Material/assets/images/users/avatar-1.jpg') }}" alt="user-img" class="img-circle"> </a>
+								<a href="" class="dropdown-toggle waves-effect waves-light profile" data-toggle="dropdown" aria-expanded="true"><img src="{{ asset('template/zircos/Horizontal-Material/assets/images/happy.png') }}" alt="user-img" class="img-circle"> </a>
 								<ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
 									<li class="text-center">
 										<h5>Hi, {{ Auth::user()->name }}</h5>

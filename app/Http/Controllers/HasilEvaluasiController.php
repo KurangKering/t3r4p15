@@ -296,7 +296,7 @@ class HasilEvaluasiController extends Controller
         }
         
 
-        // return view('hasil_evaluasi.cetak', compact('hasil_evaluasi'));
+        // return view('hasil_evaluasi.cetak', compact('periode', 'hasil_evaluasi'));
         $pdf = PDF::setPaper('A4','portrait')->loadView('hasil_evaluasi.cetak', compact('periode', 'hasil_evaluasi'));
         return $pdf->stream();
       }

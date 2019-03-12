@@ -1,0 +1,81 @@
+@page {
+	margin: 1cm 2cm 2cm 2cm;
+}
+.header {
+
+}
+.header img {
+	width: 100%;
+	height: 3.5cm;
+
+}
+.content {
+
+}
+.content .table-identitas {
+
+}
+.content .table-identitas {
+	width: 100%;
+	margin-bottom: 1rem;
+	background-color: transparent;
+	border-collapse: collapse !important;
+
+}
+.content .table-identitas tr td {
+	padding: 3px;
+}
+.content .table-identitas tr th {
+	font-weight: normal;
+	width: 40%;
+	text-align: left;
+}
+.content .table-identitas tr td:nth-child(2) {
+	width: 2%;
+	text-align: left;
+}
+.footer {
+	
+}
+
+.footer .keterangan-waktu {
+	margin-bottom: 1cm;
+
+}
+
+.footer .table-ttd tr td:nth-child(1){
+	width: 65%;
+	white-space: nowrap;
+}
+.footer .table-ttd tr td:nth-child(2){
+	text-align: center;
+}
+
+.breakNow {
+	page-break-inside:avoid;	
+}
+.text-justify {
+	text-align: justify !important;
+}
+
+.text-nowrap {
+	white-space: nowrap !important;
+}
+
+.text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
