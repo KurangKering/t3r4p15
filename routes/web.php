@@ -30,7 +30,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'revalidate'], function() {
 
-	Route::group(['middleware' => 'role:admin,klien,terapis'], function() {
+	Route::group(['middleware' => 'role:admin,klien,terapis,pimpinan'], function() {
 		Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -51,7 +51,7 @@ Route::group(['middleware' => 'revalidate'], function() {
 	});
 	
 	
-	Route::group(['middleware' => 'role:terapis,klien'], function() {
+	Route::group(['middleware' => 'role:terapis,klien,pimpinan'], function() {
 		Route::get('hasil_terapi/{id}/cetak', [
 			'uses' => 'HasilTerapiController@cetak',
 			'as' => 'hasil_terapi.cetak',
@@ -69,5 +69,44 @@ Route::group(['middleware' => 'revalidate'], function() {
 		Route::resource('profil', 'ProfilController');
 	});
 	
+
+	Route::group(['middleware' => 'role:pimpinan'], function() {
+
+		Route::get('pimpinan/daftar_klien', [
+			'uses' => 'PimpinanController@daftar_klien',
+			'as' => 'pimpinan.daftar_klien',
+		]);
+
+		Route::get('pimpinan/daftar_anak', [
+			'uses' => 'PimpinanController@daftar_anak',
+			'as' => 'pimpinan.daftar_anak',
+		]);
+
+		Route::get('pimpinan/daftar_terapi', [
+			'uses' => 'PimpinanController@daftar_terapi',
+			'as' => 'pimpinan.daftar_terapi',
+		]);
+		Route::get('pimpinan/daftar_terapis', [
+			'uses' => 'PimpinanController@daftar_terapis',
+			'as' => 'pimpinan.daftar_terapis',
+		]);
+		Route::get('pimpinan/daftar_terapi_anak', [
+			'uses' => 'PimpinanController@daftar_terapi_anak',
+			'as' => 'pimpinan.daftar_terapi_anak',
+		]);
+		Route::get('pimpinan/daftar_hasil_terapi', [
+			'uses' => 'PimpinanController@daftar_hasil_terapi',
+			'as' => 'pimpinan.daftar_hasil_terapi',
+		]);
+		Route::get('pimpinan/daftar_hasil_evaluasi', [
+			'uses' => 'PimpinanController@daftar_hasil_evaluasi',
+			'as' => 'pimpinan.daftar_hasil_evaluasi',
+		]);
+		
+
+
+		Route::resource('pimpinan', 'PimpinanController');
+		
+	});
 	
 });

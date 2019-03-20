@@ -18,26 +18,12 @@ class ProfilController extends Controller
     {
         $user = \Auth::user();
         $role = $user->role;
-        if ($role == 'klien') {
-            return $this->index_klien($user);
-        } elseif ($role == 'terapis')
-        {
-            return $this->index_terapis($user);
-        }
+        return view('profil.'.$role, compact('user'));
 
     }
 
 
-    public function index_klien($user) 
-    {
-        return view('profil.klien', compact('user'));
-    }
 
-    public function index_terapis($user)
-    {
-        return view('profil.terapis', compact('user'));
-
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -93,16 +79,50 @@ class ProfilController extends Controller
     {   
         $user = \Auth::user();
         $role = $user->role;
-
-        if ($role == 'klien') {
+        switch ($role) {
+            case 'klien':
             return $this->update_klien($request, $id);
-        } elseif ($role == 'terapis') 
-        {
+            break;
+            case 'terapis':
             return $this->update_terapis($request, $id);
-
+            break;
+            case 'pimpinan':
+            return $this->update_pimpinan($request, $id);
+            break;
+            default:
+            break;
         }
+        
     }
+    public function update_pimpinan(Request $request, $id)
+    {   
 
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'name'          => 'required',
+            'email'         => 'required|email|unique:users,email,' . $user->id,
+            'password'      => 'same:confirm-password',
+
+        ]);
+
+        $input_user = [
+            'name'     => $request->get('name'),
+            'email'    => $request->get('email'),
+
+
+        ];
+        $password = $request->get('password');
+        if(!empty($password)){ 
+            $input_user['password'] = Hash::make($password);
+        }
+
+        $user = $user->update($input_user);
+
+      
+        return redirect(route('profil.index'))->with(['success' => true, 'msg' => 'Berhasil Merubah Data Profil']);
+
+    }
     private function update_klien(Request $request, $id) 
     {
         $klien = Klien::findOrFail($id);

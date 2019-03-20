@@ -185,10 +185,40 @@
                             	<a href="{{ route('hasil_evaluasi.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Hasil Evaluasi</a>
 
                             </li>
+                            @elseif($role == 'pimpinan')
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_klien') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Klien</a>
 
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_anak') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Anak</a>
+
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_terapi') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Terapi</a>
+
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_terapis') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Terapis</a>
+
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_terapi_anak') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Terapi Anak</a>
+
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_hasil_terapi') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Hasil Terapi</a>
+
+                            </li>
+                            <li>
+                                <a href="{{ route('pimpinan.daftar_hasil_evaluasi') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Hasil Evaluasi</a>
+
+                            </li>
+                            
+                            
                             @endif
 
-                            @if (in_array($role, ['klien', 'terapis']))
+                            @if (in_array($role, ['klien', 'terapis', 'pimpinan']))
                             <li>
                                 <a href="{{ route('profil.index') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Profil</a>
 
