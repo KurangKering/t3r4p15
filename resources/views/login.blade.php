@@ -45,11 +45,9 @@
 
                         <div class="m-t-40 account-pages">
                             <div class="text-center account-logo-box">
-                                <h2 class="text-uppercase">
-                                    <a href="index.html" class="text-success">
-                                        <span><img src="{{ asset('template/zircos/Horizontal-Material/assets/images/logo.png') }}" alt="" height="36"></span>
-                                    </a>
-                                </h2>
+                                <a href="#">
+                                    <span><img src="{{ asset('images/logo-new.png') }}" alt="" height="180"></span>
+                                </a>
                                 <!--<h4 class="text-uppercase font-bold m-b-0">Sign In</h4>-->
                             </div>
                             <div class="account-content">

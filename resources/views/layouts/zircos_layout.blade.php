@@ -60,8 +60,8 @@
 						<!--Zircos-->
 						<!--</a>-->
 						<!-- Image Logo -->
-						<a href="index.html" class="logo">
-							<img src="{{ asset('template/zircos/Horizontal-Material/assets/images/logo.png') }}" alt="" height="30">
+						<a href="#" class="logo">
+							<img src="{{ asset('images/logo-new.png') }}" alt="" width="90" height="70">
 						</a>
 
 					</div>
@@ -194,10 +194,10 @@
                                 <a href="{{ route('pimpinan.daftar_anak') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Anak</a>
 
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('pimpinan.daftar_terapi') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Terapi</a>
 
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('pimpinan.daftar_terapis') }}"><i class=" mdi mdi-checkbox-blank-circle-outline"></i>Daftar Terapis</a>
 

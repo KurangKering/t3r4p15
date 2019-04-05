@@ -82,10 +82,10 @@ Route::group(['middleware' => 'revalidate'], function() {
 			'as' => 'pimpinan.daftar_anak',
 		]);
 
-		Route::get('pimpinan/daftar_terapi', [
-			'uses' => 'PimpinanController@daftar_terapi',
-			'as' => 'pimpinan.daftar_terapi',
-		]);
+		// Route::get('pimpinan/daftar_terapi', [
+		// 	'uses' => 'PimpinanController@daftar_terapi',
+		// 	'as' => 'pimpinan.daftar_terapi',
+		// ]);
 		Route::get('pimpinan/daftar_terapis', [
 			'uses' => 'PimpinanController@daftar_terapis',
 			'as' => 'pimpinan.daftar_terapis',
